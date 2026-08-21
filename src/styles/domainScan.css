@@ -1,0 +1,88 @@
+.domain-scan-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.domain-scan-hero {
+  background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(13, 22, 38, 0.95) 100%);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+.domain-scan-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  background: radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.domain-hero__header { margin-bottom: 20px; }
+.domain-hero__title { font-size: 24px; font-weight: 800; color: var(--text-primary); display: flex; align-items: center; gap: 10px; }
+.domain-hero__subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+.domain-input-group { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.domain-input-wrapper { flex: 1; min-width: 280px; position: relative; display: flex; align-items: center; }
+.domain-input-wrapper svg { position: absolute; left: 14px; color: var(--neon-blue); pointer-events: none; }
+
+.domain-input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  transition: all var(--transition-fast);
+}
+
+.domain-input:focus { outline: none; border-color: var(--neon-blue); box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15); }
+
+.domain-select {
+  padding: 12px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+.scan-launch-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--neon-blue), var(--accent-cyan));
+  color: #060b13;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+}
+
+.target-chip {
+  padding: 4px 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.target-chip:hover { border-color: var(--neon-blue); color: var(--neon-blue); background: rgba(56, 189, 248, 0.08); }

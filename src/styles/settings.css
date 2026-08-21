@@ -1,0 +1,13 @@
+.settings-layout { display: flex; gap: var(--spacing-xl); align-items: flex-start; }
+.settings-nav { width: 220px; flex-shrink: 0; position: sticky; top: 88px; display: flex; flex-direction: column; gap: 3px; }
+
+.settings-nav__item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; color: var(--text-secondary); cursor: pointer; transition: all var(--transition-base); border: 1px solid transparent; user-select: none; }
+.settings-nav__item:hover { background: var(--bg-raised); color: var(--text-primary); }
+.settings-nav__item.active { background: rgba(59, 130, 246, 0.1); border-color: rgba(59, 130, 246, 0.25); color: var(--neon-blue); }
+
+.settings-section { background: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; animation: fadeInUp 0.35s ease backwards; transition: border-color var(--transition-base); }
+.settings-section__header { display: flex; align-items: center; gap: 12px; padding: 18px var(--spacing-lg); border-bottom: 1px solid var(--border); }
+.settings-section__body { padding: var(--spacing-lg); display: flex; flex-direction: column; gap: 20px; }
+
+.s-input, .s-textarea, .s-select { width: 100%; background: var(--bg-raised); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 9px 14px; font-size: 13px; font-family: 'Inter', sans-serif; color: var(--text-primary); outline: none; transition: all var(--transition-base); }
+.s-input:focus, .s-textarea:focus, .s-select:focus { border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12); background: var(--bg-elevated); }
