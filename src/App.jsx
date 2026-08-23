@@ -100,6 +100,11 @@ export default function App() {
         mobileOpen={mobileOpen}
         onCloseMobile={handleCloseMobile}
       />
+      <div
+        className={`sidebar-overlay ${mobileOpen ? 'visible' : ''}`}
+        onClick={handleCloseMobile}
+        aria-hidden="true"
+      />
       <div className="main-wrapper">
         <Topbar
           activePage={activePage}
