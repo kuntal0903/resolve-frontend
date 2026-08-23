@@ -3,7 +3,6 @@ import {
   Layers,
   Server,
   Filter,
-  Plus,
   RefreshCw,
 } from 'lucide-react';
 import AssetModal from '../components/AssetModal';
@@ -13,12 +12,10 @@ const ASSETS_DATA = [
   { id: 'AST-102', name: 'auth-gateway.internal-asm.dev', ip: '34.201.10.88', type: 'Authentication Server', risk: 'High', status: 'Online', vulns: 2, os: 'Linux (Debian 11)' },
   { id: 'AST-103', name: 'cdn-edge-99.global.asm.net', ip: '13.224.9.15', type: 'CDN Node', risk: 'Medium', status: 'Online', vulns: 1, os: 'Alpine Linux' },
   { id: 'AST-104', name: 'staging-docs.asm.io', ip: '18.118.22.40', type: 'Web Server', risk: 'High', status: 'Online', vulns: 4, os: 'Linux (Amazon Linux 2)' },
-  { id: 'AST-105', name: 'db-replica-primary.prod.internal', ip: '10.0.4.12', type: 'Database Server', risk: 'Low', status: 'Online', vulns: 0, os: 'Linux (RHEL 8)' },
-  { id: 'AST-106', name: 'k8s-ingress-controller.prod.asm.io', ip: '3.88.112.5', type: 'Kubernetes Ingress', risk: 'Critical', status: 'Online', vulns: 5, os: 'Linux (Kubernetes node)' },
 ];
 
 export default function AssetsPage() {
-  const [assets, setAssets] = useState(ASSETS_DATA);
+  const [assets] = useState(ASSETS_DATA);
   const [filterRisk, setFilterRisk] = useState('all');
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [isSyncing, setIsSyncing] = useState(false);

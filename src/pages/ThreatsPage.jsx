@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Eye, ShieldAlert, ExternalLink } from 'lucide-react';
+import { Eye, ExternalLink } from 'lucide-react';
 import ThreatModal from '../components/ThreatModal';
 
 const THREATS_LIST = [
   { id: 'T-01', title: 'Active Exploitation of CVE-2026-1042', severity: 'critical', desc: 'RCE observed in Apache Struts 2 endpoint in wild.', cve: 'CVE-2026-1042' },
   { id: 'T-02', title: 'Malicious Subdomain Takeover Campaign', severity: 'high', desc: 'S3 CNAME hijacking targeting AWS US-East region.', cve: 'TACTIC-TA0040' },
-  { id: 'T-03', title: 'SSRF Flaw Discovered in Spring Boot', severity: 'medium', desc: 'Unauthenticated internal port probing vulnerability.', cve: 'CVE-2026-0981' },
 ];
 
 export default function ThreatsPage() {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AlertTriangle, ShieldAlert } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 import VulnerabilityTable from '../components/VulnerabilityTable';
 import VulnerabilityModal from '../components/VulnerabilityModal';
 

@@ -5,7 +5,6 @@ import {
   Radio,
   Clock,
   Filter,
-  CheckCircle,
 } from 'lucide-react';
 import AlertModal from '../components/AlertModal';
 
@@ -14,8 +13,6 @@ const ALERTS_DATA = [
   { id: 'ALT-9902', title: 'Subdomain Takeover Vector Vulnerability', severity: 'high', asset: 'staging-docs.asm.io', time: '18m ago', status: 'Active', desc: 'Stale DNS CNAME record pointing to deleted S3 bucket detected.' },
   { id: 'ALT-9903', title: 'Unauthenticated Redis Instance Exposed', severity: 'critical', asset: 'cache-cluster.prod.internal', time: '42m ago', status: 'Active', desc: 'Port 6379 accessible directly from external internet without auth password.' },
   { id: 'ALT-9904', title: 'Expired TLS/SSL Security Certificate', severity: 'warning', asset: 'auth-gateway.internal-asm.dev', time: '2h ago', status: 'Investigating', desc: 'SSL certificate expired 2 hours ago causing client handshake errors.' },
-  { id: 'ALT-9905', title: 'SSH Brute Force Attack Threshold Exceeded', severity: 'warning', asset: 'jumpbox-01.us-west.asm.io', time: '3h ago', status: 'Mitigated', desc: 'Over 500 failed SSH logins from IP 185.220.101.5 in 5 minutes.' },
-  { id: 'ALT-9906', title: 'SQL Injection in Legacy Search Endpoint', severity: 'high', asset: 'legacy-portal.asm-shield.io', time: '5h ago', status: 'Mitigated', desc: 'Unsanitized input parameter detected in GET /search query parameter.' },
 ];
 
 export default function AlertsPage() {

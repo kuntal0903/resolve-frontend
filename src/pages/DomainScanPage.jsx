@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { Globe, Search, RefreshCw, Radio } from 'lucide-react';
+import { Globe, Search, RefreshCw } from 'lucide-react';
 
 const RECON_RESULTS = [
   { subdomain: 'api.asm-shield.io', ip: '52.91.44.120', status: '200 OK', ports: '80, 443', cloud: 'AWS us-east-1' },
   { subdomain: 'staging-docs.asm.io', ip: '18.118.22.40', status: '404 Vulnerable CNAME', ports: '80', cloud: 'AWS CloudFront' },
-  { subdomain: 'auth-gateway.internal-asm.dev', ip: '34.201.10.88', status: '200 OK', ports: '443, 8443', cloud: 'AWS us-west-2' },
-  { subdomain: 'cache-cluster.prod.internal', ip: '10.0.4.12', status: 'Exposed Internal', ports: '6379', cloud: 'GCP us-central1' },
 ];
 
 export default function DomainScanPage() {
@@ -65,8 +63,8 @@ export default function DomainScanPage() {
                     borderRadius: 4,
                     fontSize: 11,
                     fontWeight: 600,
-                    background: r.status.includes('Vulnerable') || r.status.includes('Exposed') ? 'rgba(239, 68, 68, 0.15)' : 'rgba(34, 197, 94, 0.15)',
-                    color: r.status.includes('Vulnerable') || r.status.includes('Exposed') ? 'var(--critical)' : 'var(--low)',
+                    background: r.status.includes('Vulnerable') ? 'rgba(239, 68, 68, 0.15)' : 'rgba(34, 197, 94, 0.15)',
+                    color: r.status.includes('Vulnerable') ? 'var(--critical)' : 'var(--low)',
                   }}>
                     {r.status}
                   </span>

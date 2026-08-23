@@ -5,7 +5,6 @@ import {
   Layers,
   AlertTriangle,
   Flame,
-  Download,
 } from 'lucide-react';
 import KpiCard from '../components/KpiCard';
 import RiskChart from '../components/RiskChart';
@@ -15,7 +14,7 @@ import ExportCard from '../components/ExportCard';
 import VulnerabilityModal from '../components/VulnerabilityModal';
 import ThreatModal from '../components/ThreatModal';
 
-export default function Dashboard({ onExport, onVulnClick }) {
+export default function Dashboard({ onExport }) {
   const [selectedVuln, setSelectedVuln] = useState(null);
   const [selectedThreat, setSelectedThreat] = useState(null);
 
