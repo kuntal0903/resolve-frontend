@@ -1,28 +1,40 @@
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 
-export default function KpiCard({ icon, label, value, variant = 'blue', barFill = 50, trend, trendValue, subLeft, subRight, onClick }) {
+export default function KpiCard({ title, value, change, trend, icon: Icon, color = 'blue' }) {
+  const getTrendIcon = () => {
+    if (trend === 'up')   return <TrendingUp size={13} />;
+    if (trend === 'down') return <TrendingDown size={13} />;
+    return <Minus size={13} />;
+  };
+
+  const getTrendClass = () => {
+    if (trend === 'up')   return 'up';
+    if (trend === 'down') return 'down';
+    return 'neutral';
+  };
+
   return (
-    <article className={`kpi-card kpi-card--${variant}`} role="button" tabIndex={0} aria-label={`${label}: ${value}`} onClick={onClick} style={{ cursor: onClick ? 'pointer' : 'default' }}>
+    <div className={`kpi-card kpi-card--${color}`} role="region" aria-label={title}>
       <div className="kpi-card__header">
-        <div className="kpi-card__icon-wrap">{icon}</div>
-        {trend && trendValue && (
-          <div className={`kpi-card__trend kpi-card__trend--${trend}`}>
-            {trend === 'up' ? <TrendingUp size={11} /> : <TrendingDown size={11} />}
-            {trendValue}
+        <span className="kpi-card__title">{title}</span>
+        {Icon && (
+          <div className="kpi-card__icon-wrapper">
+            <Icon size={18} />
           </div>
         )}
       </div>
+
       <div className="kpi-card__value">{value}</div>
-      <div className="kpi-card__label">{label}</div>
-      <div className="kpi-card__bar-track" role="progressbar" aria-valuenow={barFill} aria-valuemin={0} aria-valuemax={100}>
-        <div className="kpi-card__bar-fill" style={{ width: `${barFill}%` }} />
-      </div>
-      {(subLeft || subRight) && (
-        <div className="kpi-card__sub">
-          <span>{subLeft}</span>
-          <span>{subRight}</span>
+
+      {change && (
+        <div className="kpi-card__footer">
+          <span className={`kpi-card__badge ${getTrendClass()}`}>
+            {getTrendIcon()}
+            {change}
+          </span>
+          <span className="kpi-card__period">vs last 30 days</span>
         </div>
       )}
-    </article>
+    </div>
   );
 }

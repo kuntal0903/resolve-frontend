@@ -1,0 +1,87 @@
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.main-wrapper {
+  margin-left: var(--sidebar-width);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left var(--transition-base);
+}
+
+.main-wrapper.sidebar-collapsed {
+  margin-left: var(--sidebar-width-collapsed);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--transition-base);
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-dim));
+  color: white;
+  box-shadow: var(--glow-blue);
+}
+
+.btn--primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn--secondary {
+  background: var(--bg-raised);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.btn--secondary:hover {
+  background: var(--bg-hover);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn--ghost:hover {
+  color: var(--text-primary);
+  background: var(--bg-raised);
+}
+
+.severity-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.severity-badge--critical { background: var(--critical-bg); color: var(--critical); border: 1px solid var(--critical-border); }
+.severity-badge--high     { background: var(--high-bg);     color: var(--high);     border: 1px solid var(--high-border); }
+.severity-badge--medium   { background: var(--medium-bg);   color: var(--medium);   border: 1px solid var(--medium-border); }
+.severity-badge--low      { background: var(--low-bg);      color: var(--low);      border: 1px solid var(--low-border); }
+.severity-badge--warning  { background: var(--high-bg);     color: var(--high);     border: 1px solid var(--high-border); }

@@ -1,27 +1,40 @@
-import { Globe, Zap, Bug, Eye, Lock } from 'lucide-react';
+import { ShieldAlert, ExternalLink } from 'lucide-react';
 
-const MOCK_THREATS = [
-  { id: 1, icon: Globe, iconColor: 'var(--critical)', iconBg: 'rgba(239, 68, 68, 0.12)', title: 'Ransomware Campaign Detected', desc: 'LockBit 3.0 affiliate observed targeting financial sector with exposed RDP endpoints.', time: '4m ago' },
-  { id: 2, icon: Zap, iconColor: 'var(--high)', iconBg: 'rgba(249, 115, 22, 0.12)', title: 'Zero-Day Exploit in Wild', desc: 'PoC for CVE-2024-21413 (Outlook RCE) published on exploit-db. Patch immediately.', time: '18m ago' },
-  { id: 3, icon: Eye, iconColor: 'var(--accent-purple)', iconBg: 'rgba(139, 92, 246, 0.12)', title: 'APT29 Spearphishing Wave', desc: 'Cozy Bear targeting government contractors. Phishing domains spoofing corp email.', time: '1h ago' },
-  { id: 4, icon: Bug, iconColor: 'var(--medium)', iconBg: 'rgba(234, 179, 8, 0.12)', title: 'Malware: AsyncRAT Variant', desc: 'New AsyncRAT variant using Discord C2. 3 internal hosts flagged by EDR.', time: '2h ago' },
-  { id: 5, icon: Lock, iconColor: 'var(--accent-blue)', iconBg: 'rgba(59, 130, 246, 0.12)', title: 'Credential Stuffing Attempt', desc: '14,200 login attempts against VPN portal from 87 unique IPs. GeoBlock triggered.', time: '3h ago' },
+const THREATS = [
+  { id: 1, title: 'Active Exploitation of CVE-2026-1042', severity: 'critical', desc: 'RCE observed in Apache Struts 2 endpoint in wild.', cve: 'CVE-2026-1042' },
+  { id: 2, title: 'Malicious Subdomain Takeover Campaign', severity: 'high', desc: 'S3 CNAME hijacking targeting AWS US-East region.', cve: 'TACTIC-TA0040' },
+  { id: 3, title: 'SSRF Flaw Discovered in Spring Boot', severity: 'medium', desc: 'Unauthenticated internal port probing vulnerability.', cve: 'CVE-2026-0981' },
 ];
 
-export default function ThreatFeed({ threats, onItemClick }) {
-  const items = threats || MOCK_THREATS;
+export default function ThreatFeed({ onSelectThreat }) {
   return (
-    <div>
-      {items.map((threat) => {
-        const Icon = threat.icon;
-        return (
-          <div key={threat.id} className="threat-item" onClick={() => onItemClick && onItemClick(threat)} role="button" tabIndex={0} aria-label={threat.title}>
-            <div className="threat-item__icon" style={{ background: threat.iconBg, color: threat.iconColor }}><Icon size={16} /></div>
-            <div className="threat-item__content"><div className="threat-item__title">{threat.title}</div><div className="threat-item__desc">{threat.desc}</div></div>
-            <div className="threat-item__time">{threat.time}</div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      {THREATS.map((t) => (
+        <div
+          key={t.id}
+          style={{
+            padding: 12,
+            background: 'var(--bg-raised)',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid var(--border)',
+            display: 'flex',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            cursor: onSelectThreat ? 'pointer' : 'default',
+          }}
+          onClick={() => onSelectThreat && onSelectThreat(t)}
+        >
+          <div style={{ display: 'flex', gap: 10 }}>
+            <ShieldAlert size={18} color={t.severity === 'critical' ? 'var(--critical)' : 'var(--high)'} style={{ marginTop: 2 }} />
+            <div>
+              <strong style={{ fontSize: 13, color: 'var(--text-primary)', display: 'block' }}>{t.title}</strong>
+              <p style={{ fontSize: 12, color: 'var(--text-secondary)', margin: '2px 0 4px' }}>{t.desc}</p>
+              <span className="mono" style={{ fontSize: 11, color: 'var(--neon-blue)' }}>{t.cve}</span>
+            </div>
           </div>
-        );
-      })}
+          <ExternalLink size={14} color="var(--text-muted)" />
+        </div>
+      ))}
     </div>
   );
 }

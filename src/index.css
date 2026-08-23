@@ -5,22 +5,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* ── CSS Variables / Design Tokens ─────────────────────────────── */
-
-/* ════════════════════════════════════════════════════════════════
-   THEME: Dark (default)
-   Deep navy cybersecurity aesthetic
-   ════════════════════════════════════════════════════════════════ */
 :root,
 [data-theme="dark"] {
-  /* Backgrounds */
   --bg-base:        #060b14;
   --bg-surface:     #0d1626;
   --bg-raised:      #111d35;
   --bg-elevated:    #172240;
   --bg-hover:       #1e2d52;
 
-  /* Accents */
   --accent-blue:    #3b82f6;
   --accent-blue-dim:#1d4ed8;
   --accent-cyan:    #06b6d4;
@@ -28,41 +20,31 @@
   --neon-blue:      #60a5fa;
   --neon-cyan:      #22d3ee;
 
-  /* Text */
   --text-primary:   #f0f4ff;
   --text-secondary: #8da2c0;
   --text-muted:     #4a6080;
   --text-accent:    #60a5fa;
 
-  /* Borders */
   --border:         rgba(59, 130, 246, 0.12);
   --border-hover:   rgba(59, 130, 246, 0.35);
   --border-active:  rgba(59, 130, 246, 0.7);
 
-  /* Glows */
   --glow-blue:      0 0 20px rgba(59, 130, 246, 0.25);
   --glow-cyan:      0 0 20px rgba(6, 182, 212, 0.25);
   --glow-critical:  0 0 20px rgba(239, 68, 68, 0.3);
   --glow-purple:    0 0 20px rgba(139, 92, 246, 0.3);
 
-  /* Scrollbar */
   --scrollbar-thumb: rgba(59, 130, 246, 0.2);
   --scrollbar-track: rgba(6, 11, 20, 0.5);
 }
 
-/* ════════════════════════════════════════════════════════════════
-   THEME: Light
-   Clean high-contrast tech dashboard
-   ════════════════════════════════════════════════════════════════ */
 [data-theme="light"] {
-  /* Backgrounds */
   --bg-base:        #f4f7fc;
   --bg-surface:     #ffffff;
   --bg-raised:      #eef2fa;
   --bg-elevated:    #e2e8f5;
   --bg-hover:       #dbe3f4;
 
-  /* Accents */
   --accent-blue:    #2563eb;
   --accent-blue-dim:#1d4ed8;
   --accent-cyan:    #0891b2;
@@ -70,41 +52,31 @@
   --neon-blue:      #2563eb;
   --neon-cyan:      #0891b2;
 
-  /* Text */
   --text-primary:   #0f172a;
   --text-secondary: #475569;
   --text-muted:     #94a3b8;
   --text-accent:    #2563eb;
 
-  /* Borders */
   --border:         rgba(37, 99, 235, 0.15);
   --border-hover:   rgba(37, 99, 235, 0.4);
   --border-active:  rgba(37, 99, 235, 0.8);
 
-  /* Glows */
   --glow-blue:      0 0 15px rgba(37, 99, 235, 0.15);
   --glow-cyan:      0 0 15px rgba(8, 145, 178, 0.15);
   --glow-critical:  0 0 15px rgba(220, 38, 38, 0.2);
   --glow-purple:    0 0 15px rgba(124, 58, 237, 0.2);
 
-  /* Scrollbar */
   --scrollbar-thumb: rgba(37, 99, 235, 0.25);
   --scrollbar-track: #f4f7fc;
 }
 
-/* ════════════════════════════════════════════════════════════════
-   THEME: Deep Blue (Cyber Navy Variant)
-   Ultramarine high-tech matrix theme
-   ════════════════════════════════════════════════════════════════ */
 [data-theme="blue"] {
-  /* Backgrounds */
   --bg-base:        #020817;
   --bg-surface:     #081229;
   --bg-raised:      #0f1d3f;
   --bg-elevated:    #152754;
   --bg-hover:       #1c336e;
 
-  /* Accents */
   --accent-blue:    #38bdf8;
   --accent-blue-dim:#0284c7;
   --accent-cyan:    #34d399;
@@ -112,30 +84,24 @@
   --neon-blue:      #38bdf8;
   --neon-cyan:      #34d399;
 
-  /* Text */
   --text-primary:   #f0f9ff;
   --text-secondary: #7dd3fc;
   --text-muted:     #38bdf8;
 
-  /* Borders */
   --border:         rgba(56, 189, 248, 0.2);
   --border-hover:   rgba(56, 189, 248, 0.5);
   --border-active:  rgba(56, 189, 248, 0.9);
 
-  /* Glows */
   --glow-blue:      0 0 25px rgba(56, 189, 248, 0.35);
   --glow-cyan:      0 0 25px rgba(52, 211, 153, 0.35);
   --glow-critical:  0 0 25px rgba(248, 113, 113, 0.35);
   --glow-purple:    0 0 25px rgba(192, 132, 252, 0.35);
 
-  /* Scrollbar */
   --scrollbar-thumb: rgba(56, 189, 248, 0.3);
   --scrollbar-track: #020817;
 }
 
-/* ── Common Design Tokens (Shared across all themes) ───────────── */
 :root {
-  /* Severity Colors */
   --critical:       #ef4444;
   --critical-bg:    rgba(239, 68, 68, 0.12);
   --critical-border:rgba(239, 68, 68, 0.35);
@@ -156,28 +122,23 @@
   --info-bg:        rgba(59, 130, 246, 0.12);
   --info-border:    rgba(59, 130, 246, 0.35);
 
-  /* Component Layout Sizing */
   --sidebar-width:           240px;
   --sidebar-width-collapsed: 64px;
 
-  /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
 
-  /* Border Radii */
   --radius-sm:  4px;
   --radius-md:  8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-full: 9999px;
 
-  /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── Base Styles & Resets ───────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -201,7 +162,6 @@ body {
   background-color: var(--bg-base);
 }
 
-/* ── Custom Scrollbar ──────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -220,7 +180,6 @@ body {
   background: var(--accent-blue);
 }
 
-/* ── Utility Classes ────────────────────────────────────────────── */
 .mono {
   font-family: var(--font-mono);
 }
@@ -232,7 +191,6 @@ body {
 .text-blue     { color: var(--neon-blue); }
 .text-muted    { color: var(--text-muted); }
 
-/* Keyframe Animations */
 @keyframes pulseGlow {
   0%, 100% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
   50%      { box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }

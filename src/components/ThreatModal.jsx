@@ -1,47 +1,121 @@
 import { useState } from 'react';
-import { X, Copy, Check, AlertOctagon, Terminal } from 'lucide-react';
+import {
+  X,
+  ShieldAlert,
+  Flame,
+  ShieldCheck,
+  CheckCircle,
+  ExternalLink,
+} from 'lucide-react';
 
 export default function ThreatModal({ threat, onClose }) {
-  const [acknowledged, setAcknowledged] = useState(false);
-  const [ipBlocked, setIpBlocked] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [toastMsg, setToastMsg] = useState(null);
+  const [mitigated, setMitigated] = useState(false);
 
   if (!threat) return null;
 
-  const showToast = (msg) => { setToastMsg(msg); setTimeout(() => setToastMsg(null), 3000); };
-  const handleCopyIoc = () => { navigator.clipboard.writeText(`IOC: ${threat.title} - ${threat.desc}`).catch(() => {}); setCopied(true); setTimeout(() => setCopied(false), 2000); };
-  const handleBlockIp = () => { setIpBlocked(true); showToast('Firewall GeoBlock Rule Added for IOC IPs'); };
-  const handleAcknowledge = () => { setAcknowledged(true); showToast('Threat item acknowledged by Security Operations'); };
-
   return (
     <>
-      <div className="modal-overlay" onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(3, 7, 18, 0.75)', backdropFilter: 'blur(6px)', zIndex: 300 }} />
-      <div role="dialog" aria-label={`Threat details for ${threat.title}`} aria-modal="true" style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '90%', maxWidth: '620px', maxHeight: '90vh', overflowY: 'auto', background: 'var(--bg-surface)', border: '1px solid var(--border-hover)', borderRadius: 'var(--radius-lg)', boxShadow: '0 24px 60px rgba(0, 0, 0, 0.8), var(--glow-red)', zIndex: 301, padding: '24px', color: 'var(--text-primary)' }}>
-        {toastMsg && <div style={{ position: 'absolute', top: 16, left: '50%', transform: 'translateX(-50%)', background: 'var(--bg-elevated)', border: '1px solid var(--low)', color: 'var(--low)', padding: '6px 16px', borderRadius: 99, fontSize: 12, fontWeight: 600, boxShadow: '0 4px 16px rgba(0,0,0,0.4)', zIndex: 310 }}>✓ {toastMsg}</div>}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20 }}>
+      <div className="modal-overlay" onClick={onClose} style={{ position: 'fixed', inset: 0, background: 'rgba(3,7,18,0.8)', zIndex: 400 }} />
+
+      <div
+        role="dialog"
+        aria-label={`Threat details for ${threat.title}`}
+        style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '92%',
+          maxWidth: '680px',
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          background: 'var(--bg-surface)',
+          border: '1px solid var(--border-hover)',
+          borderRadius: 'var(--radius-lg)',
+          zIndex: 401,
+          padding: 24,
+          boxShadow: '0 20px 50px rgba(0,0,0,0.6), var(--glow-blue)',
+        }}
+      >
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 44, height: 44, borderRadius: 'var(--radius-md)', background: threat.iconBg || 'rgba(239,68,68,0.15)', color: threat.iconColor || 'var(--critical)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><AlertOctagon size={24} /></div>
-            <div><div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase' }}>Threat Intelligence Feed · {threat.time || 'Live'}</div><h2 style={{ fontSize: 18, fontWeight: 700, marginTop: 2 }}>{threat.title}</h2></div>
+            <div
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 'var(--radius-md)',
+                background: threat.severity === 'critical' ? 'rgba(239, 68, 68, 0.15)' : 'rgba(249, 115, 22, 0.15)',
+                color: threat.severity === 'critical' ? 'var(--critical)' : 'var(--high)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                border: threat.severity === 'critical' ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid rgba(249, 115, 22, 0.3)',
+              }}
+            >
+              <Flame size={22} />
+            </div>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <h2 style={{ fontSize: 18, fontWeight: 800, color: 'var(--text-primary)' }}>{threat.title}</h2>
+                <span className={`severity-badge severity-badge--${threat.severity}`}>{threat.severity}</span>
+              </div>
+              <span className="mono" style={{ fontSize: 12, color: 'var(--neon-blue)' }}>
+                {threat.cve || 'THREAT-INTEL-01'} • Active Exploitation Detected
+              </span>
+            </div>
           </div>
-          <button onClick={onClose} aria-label="Close dialog" style={{ background: 'var(--bg-raised)', border: '1px solid var(--border)', borderRadius: 6, width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text-muted)', cursor: 'pointer' }}><X size={16} /></button>
+
+          <button
+            onClick={onClose}
+            style={{ background: 'none', border: 'none', color: 'var(--text-muted)', cursor: 'pointer', padding: 4 }}
+            aria-label="Close dialog"
+          >
+            <X size={18} />
+          </button>
         </div>
-        <div style={{ background: 'var(--bg-raised)', padding: 16, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', marginBottom: 20 }}>
-          <h4 style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, color: 'var(--text-primary)' }}>Threat Advisory Summary</h4>
-          <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.6 }}>{threat.desc}</p>
+
+        {mitigated && (
+          <div style={{ padding: '10px 14px', marginBottom: 16, background: 'rgba(34, 197, 94, 0.1)', border: '1px solid var(--low)', borderRadius: 'var(--radius-md)', fontSize: 12, color: 'var(--low)', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <CheckCircle size={14} /> Threat mitigation playbook deployed across edge WAF.
+          </div>
+        )}
+
+        <div style={{ background: 'var(--bg-card)', padding: 16, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)', marginBottom: 20 }}>
+          <h4 style={{ fontSize: 13, fontWeight: 700, marginBottom: 6, color: 'var(--text-primary)' }}>Threat Description</h4>
+          <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+            {threat.desc || 'Active threat campaign observed targeting exposed cloud services and edge infrastructure.'}
+          </p>
         </div>
-        <div style={{ marginBottom: 20 }}>
-          <h4 style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 10, display: 'flex', alignItems: 'center', gap: 6 }}><Terminal size={14} color="var(--neon-cyan)" /> Observed Indicators of Compromise (IOCs)</h4>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, fontFamily: 'monospace', fontSize: 12 }}>
-            <div style={{ padding: '8px 12px', background: 'rgba(255,255,255,0.03)', borderRadius: 6, border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between' }}><span>IP Address Range: 185.220.101.0/24</span><span style={{ color: 'var(--critical)' }}>Malicious C2</span></div>
-            <div style={{ padding: '8px 12px', background: 'rgba(255,255,255,0.03)', borderRadius: 6, border: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between' }}><span>SHA256: 4f82a901c8723b...</span><span style={{ color: 'var(--high)' }}>AsyncRAT Variant</span></div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
+          <div style={{ background: 'var(--bg-raised)', padding: 14, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
+            <span style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 2 }}>Threat Vector</span>
+            <strong style={{ fontSize: 13, color: 'var(--text-primary)' }}>Remote Code Execution (RCE)</strong>
+          </div>
+          <div style={{ background: 'var(--bg-raised)', padding: 14, borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}>
+            <span style={{ fontSize: 11, color: 'var(--text-muted)', display: 'block', marginBottom: 2 }}>EPSS Score</span>
+            <strong style={{ fontSize: 13, color: 'var(--critical)' }}>0.9412 (High Probability)</strong>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 16, borderTop: '1px solid var(--border)', gap: 12, flexWrap: 'wrap' }}>
-          <button onClick={handleCopyIoc} className="btn btn--ghost" style={{ fontSize: 12 }}>{copied ? <Check size={14} color="var(--low)" /> : <Copy size={14} />}{copied ? 'Copied IOCs' : 'Copy IOC Data'}</button>
+
+        <div style={{ borderTop: '1px solid var(--border)', paddingTop: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <a
+            href={`https://nvd.nist.gov/vuln/detail/${threat.cve || ''}`}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn--ghost"
+            style={{ textDecoration: 'none' }}
+          >
+            NVD Details <ExternalLink size={14} />
+          </a>
+
           <div style={{ display: 'flex', gap: 10 }}>
-            <button onClick={handleBlockIp} disabled={ipBlocked} className="btn btn--ghost" style={{ fontSize: 12, color: ipBlocked ? 'var(--low)' : 'var(--critical)' }}>{ipBlocked ? '✓ IP Blocked' : '🚫 Block Malicious IPs'}</button>
-            <button onClick={handleAcknowledge} disabled={acknowledged} className="btn btn--primary" style={{ fontSize: 12 }}>{acknowledged ? '✓ Acknowledged' : 'Acknowledge Threat'}</button>
+            <button className="btn btn--secondary" onClick={() => setMitigated(true)}>
+              <ShieldCheck size={14} /> Apply WAF Rule
+            </button>
+            <button className="btn btn--primary" onClick={onClose}>
+              Done
+            </button>
           </div>
         </div>
       </div>
