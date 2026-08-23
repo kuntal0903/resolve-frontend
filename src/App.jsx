@@ -53,21 +53,25 @@ export default function App() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileOpen,       setMobileOpen]       = useState(false);
   const [notifOpen,        setNotifOpen]        = useState(false);
-  const [activePage, setActivePage] = useState('dashboard');
+  const [activePage,       setActivePage]       = useState('dashboard');
 
   const handleToggleSidebar = useCallback(() => {
     setSidebarCollapsed((prev) => !prev);
   }, []);
 
-  const handleMobileToggle = useCallback(() => {
+  const handleToggleMobile = useCallback(() => {
     setMobileOpen((prev) => !prev);
   }, []);
 
-  const handleNotifToggle = useCallback(() => {
+  const handleCloseMobile = useCallback(() => {
+    setMobileOpen(false);
+  }, []);
+
+  const handleOpenNotifications = useCallback(() => {
     setNotifOpen((prev) => !prev);
   }, []);
 
-  const handleNotifClose = useCallback(() => {
+  const handleCloseNotifications = useCallback(() => {
     setNotifOpen(false);
   }, []);
 
@@ -82,40 +86,39 @@ export default function App() {
     console.log(`[ASM] Export complete`);
   }, []);
 
-  const handleVulnClick = useCallback((vuln) => {
-    console.log('[ASM] Vulnerability selected:', vuln);
+  const handleVulnClick = useCallback(() => {
+    setActivePage('vulnerabilities');
   }, []);
 
   return (
-    <div className="app-layout">
+    <div className={`app-container ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
       <Sidebar
-        collapsed={sidebarCollapsed}
-        onToggle={handleToggleSidebar}
         activePage={activePage}
         onNavigate={handleNavigate}
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={handleToggleSidebar}
+        mobileOpen={mobileOpen}
+        onCloseMobile={handleCloseMobile}
       />
-      <div
-        className={`sidebar-overlay ${mobileOpen ? 'visible' : ''}`}
-        onClick={() => setMobileOpen(false)}
-        aria-hidden="true"
-      />
-      <div className={`main-wrapper ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      <div className="main-wrapper">
         <Topbar
           activePage={activePage}
-          onMobileToggle={handleMobileToggle}
           onNavigate={handleNavigate}
-          onNotifToggle={handleNotifToggle}
-          notifOpen={notifOpen}
+          onToggleSidebar={handleToggleSidebar}
+          onToggleMobile={handleToggleMobile}
+          onOpenNotifications={handleOpenNotifications}
         />
-        <PageRouter
-          activePage={activePage}
-          onExport={handleExport}
-          onVulnClick={handleVulnClick}
-        />
+        <main className="main-content">
+          <PageRouter
+            activePage={activePage}
+            onExport={handleExport}
+            onVulnClick={handleVulnClick}
+          />
+        </main>
       </div>
       <NotificationsPanel
         isOpen={notifOpen}
-        onClose={handleNotifClose}
+        onClose={handleCloseNotifications}
         onNavigate={handleNavigate}
       />
     </div>
